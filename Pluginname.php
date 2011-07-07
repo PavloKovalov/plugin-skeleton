@@ -44,10 +44,10 @@ class Pluginname implements RCMS_Core_PluginInterface {
 	}
 
 	public function run($requestParams = array()) {
-		if (isset($params['run'])) {
-			$methodName = '_' . strtolower($params['run']) . 'Action';
+		if (isset($requestParams['run'])) {
+			$methodName = '_' . strtolower($requestParams['run']) . 'Action';
 			if (method_exists($this, $methodName)) {
-				if (!$this->_checkLogin() && in_array(strtolower($params['run']), $this->_securedActions)) {
+				if (!$this->_checkLogin() && in_array(strtolower($requestParams['run']), $this->_securedActions)) {
 					throw new Exception('Not allowed action');
 				}
 				return $this->$methodName($requestParams);
